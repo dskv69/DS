@@ -1,8 +1,9 @@
 ﻿add_subdirectory(vendor/spdlog)
+add_subdirectory(vendor/glfw)
 
 add_library (DS "source/core/DS.cpp" "include/DS.h" "source/core/log.cpp" "source/core/application.cpp")
-target_include_directories(DS PUBLIC ./include/DS ./include vendor/spdlog/include)
-target_link_libraries(DS spdlog)
+target_include_directories(DS PUBLIC ./include/DS ./include vendor/spdlog/include vendor/glfw/include)
+target_link_libraries(DS spdlog glfw)
 
 if (MSVC)
 

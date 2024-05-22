@@ -1,5 +1,6 @@
 #include "application.hpp"
 #include "log.hpp"
+#include <GLFW/glfw3.h>
 
 namespace DS
 {
@@ -23,15 +24,21 @@ namespace DS
 	void Application::run()
 	{
 		logger_init();
+		glfwInit();
+		auto window = glfwCreateWindow(800, 600, "DS", NULL, NULL);
+		glfwMakeContextCurrent(window);
 
 		on_start();
 
-		while (true)
+		while (!glfwWindowShouldClose(window))
 		{
-			DS_INFO("App is running!");
+			glfwPollEvents();
+			
 			on_update();
+			glfwSwapBuffers(window);
 		}
 
+		glfwTerminate();
 		on_close();
 
 		AppInstancer::s_closed = true;

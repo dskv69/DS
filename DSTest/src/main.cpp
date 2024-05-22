@@ -7,7 +7,7 @@ class TestApp : public DS::Application
 private:
 	void on_start() override
 	{
-
+		DS_INFO("App Started!");
 	}	
 	
 	void on_update() override
@@ -19,10 +19,14 @@ private:
 	{
 
 	}
+
+
 };
 
 int main(int argc, char* argv[])
 {
-	DS::AppInstancer::create_app(new TestApp);
+	auto app = new TestApp;
+	DS::AppInstancer::create_app(app);
 	DS::AppInstancer::start_app();
+	delete app;
 }

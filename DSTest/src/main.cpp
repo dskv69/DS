@@ -8,22 +8,18 @@ private:
 	void on_start() override
 	{
 		DS_INFO("App Started!");
-	}	
-	
-	void on_update() override
-	{
-
-	}	
-	
-	void on_close() override
-	{
-
 	}
 
+	void on_update() override
+	{
+	}
 
+	void on_close() override
+	{
+	}
 };
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	auto app = new TestApp;
 	DS::AppInstancer::create_app(app);

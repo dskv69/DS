@@ -2,6 +2,11 @@
 #include "log.hpp"
 #include <GLFW/glfw3.h>
 
+void glfw_error_callback(int error_code, const char* description)
+{
+	DS_ERROR("Error: {}", description);
+}
+
 namespace DS
 {
 	Application* AppInstancer::s_appInstance = nullptr;
@@ -21,24 +26,32 @@ namespace DS
 		s_started = true;
 	}
 
-	void Application::run()
+	Application::Application()
 	{
 		logger_init();
-		glfwInit();
-		auto window = glfwCreateWindow(800, 600, "DS", NULL, NULL);
-		glfwMakeContextCurrent(window);
+		Window::init_glfw();
+		m_window = std::make_shared<Window>();
+	}
+
+	Application::~Application()
+	{
+		Window::terminate_glfw();
+	}
+
+	void Application::run()
+	{
+		glfwSetErrorCallback(glfw_error_callback);
 
 		on_start();
 
-		while (!glfwWindowShouldClose(window))
+		while (!m_window->should_close())
 		{
-			glfwPollEvents();
+			Window::poll_events();
 			
 			on_update();
-			glfwSwapBuffers(window);
+			m_window->swap_buffers();
 		}
 
-		glfwTerminate();
 		on_close();
 
 		AppInstancer::s_closed = true;

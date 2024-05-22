@@ -1,9 +1,10 @@
 ﻿add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/glfw)
 
-add_library (DS "source/core/DS.cpp" "include/DS.h" "source/core/log.cpp" "source/core/application.cpp")
+add_library (DS "include/DS.h" "source/core/log.cpp" "source/core/application.cpp" "source/core/window.cpp")
 target_include_directories(DS PUBLIC ./include/DS ./include vendor/spdlog/include vendor/glfw/include)
 target_link_libraries(DS spdlog glfw)
+target_precompile_headers(DS PUBLIC <memory> <vector> <string> <unordered_map> <unordered_set> <string_view> <stdint.h>)
 
 if (MSVC)
 

@@ -4,10 +4,15 @@
 
 class TestApp : public DS::Application
 {
+public: 
+	TestApp() : Application()
+	{
+	}
+
 private:
 	void on_start() override
 	{
-		DS_INFO("App Started!");
+		m_window->create(800, 600, "DS ENGINE TEST");
 	}	
 	
 	void on_update() override

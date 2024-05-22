@@ -1,0 +1,7 @@
+functions - a_function()
+private member - m_memberName
+public member memberName
+static variable - s_staticVariable
+constant - CONSTANT
+class - ClassName
+enums - EnumName

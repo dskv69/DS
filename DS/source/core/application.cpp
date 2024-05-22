@@ -43,6 +43,12 @@ namespace DS
 		glfwSetErrorCallback(glfw_error_callback);
 
 		on_start();
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+		{
+			DS_CRITICAL("FAILED TO LOAD OPENGL");
+			exit(-1);
+		}
+
 
 		while (!m_window->should_close())
 		{

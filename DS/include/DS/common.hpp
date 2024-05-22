@@ -11,6 +11,7 @@
 #include <memory>
 
 // VENDORED
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 // DS

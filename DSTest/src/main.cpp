@@ -17,18 +17,17 @@ private:
 	
 	void on_update() override
 	{
-
+		glClearColor(1.0f, 0.0f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 	}	
 	
 	void on_close() override
 	{
 
 	}
-
-
 };
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	auto app = new TestApp;
 	DS::AppInstancer::create_app(app);

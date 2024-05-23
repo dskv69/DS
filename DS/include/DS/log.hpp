@@ -14,7 +14,7 @@ namespace DS
 
 #define DS_ERROR(...) spdlog::get("ds_logger")->error(__VA_ARGS__)
 #define DS_WARN(...) spdlog::get("ds_logger")->warn(__VA_ARGS__)
-#define DS_INFO(...) spdlog::get("ds_logger")->info(str, __VA_ARGS__)
+#define DS_INFO(...) spdlog::get("ds_logger")->info(__VA_ARGS__)
 #define DS_CRITICAL(...) spdlog::get("ds_logger")->critical(__VA_ARGS__)
 #define DS_ASSERT(expr, msg) if ((expr)) {DS_ERROR("Assertion failed: {} at {}", msg, #expr); exit(-1);} 
 

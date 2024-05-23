@@ -5,8 +5,22 @@ add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
 
-add_library (DS "include/DS.h" "source/core/log.cpp" "source/core/application.cpp" "source/core/window.cpp")
-target_include_directories(DS PUBLIC ./include/DS ./include vendor/spdlog/include vendor/glfw/include vendor/glad/include)
+set(SRC_FILES 	"source/core/log.cpp"
+				"source/core/application.cpp" 
+				"source/core/window.cpp"
+				"source/opengl/gl_renderer.cpp"
+				"source/core/layer.cpp")
+
+set(HEADER_FILES "include/DS/application.hpp"
+				 "include/DS/window.hpp" 
+				 "include/DS/log.hpp" 
+				 "include/DS/common.hpp" 
+				 "include/DS/gl_renderer.hpp" 
+				 "include/DS/layer.hpp"
+				 "include/DS.h" )
+
+add_library (DS ${SRC_FILES} ${HEADER_FILES})
+target_include_directories(DS PUBLIC ./include/DS ./include vendor/spdlog/include vendor/glfw/include vendor/glad/include vendor/glm)
 target_link_libraries(DS spdlog glfw glad)
 
 

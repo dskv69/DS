@@ -26,11 +26,13 @@ namespace DS
 		s_started = true;
 	}
 
-	Application::Application()
+	Application::Application(AppInfo info)
 	{
 		logger_init();
 		Window::init_glfw();
 		m_window = std::make_shared<Window>();
+		gl_loaded = false;
+		m_info = info;
 	}
 
 	Application::~Application()
@@ -38,28 +40,52 @@ namespace DS
 		Window::terminate_glfw();
 	}
 
-	void Application::run()
-	{
-		glfwSetErrorCallback(glfw_error_callback);
+	void Application::on_start() {}
+	void Application::on_update() {}
+	void Application::on_close() {}
 
-		on_start();
+	void Application::load_gl()
+	{
+		if (gl_loaded) return;
+
+		DS_ASSERT(m_window->m_glfwWindow == nullptr, "");
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
 			DS_CRITICAL("FAILED TO LOAD OPENGL");
 			exit(-1);
 		}
+		gl_loaded = true;
+	}
 
+	void Application::run()
+	{
+		glfwSetErrorCallback(glfw_error_callback);
+		m_window->create(m_info.width, m_info.height, m_info.title);
+		load_gl();
+
+		on_start();
 
 		while (!m_window->should_close())
 		{
 			Window::poll_events();
 			
 			on_update();
+
+			for (Layer* layer : m_layers)
+			{
+				layer->on_update();
+			}
+
 			m_window->swap_buffers();
 		}
 
 		on_close();
 
 		AppInstancer::s_closed = true;
+	}
+
+	void Application::pop_layer()
+	{
+		m_layers.pop_back();
 	}
 }

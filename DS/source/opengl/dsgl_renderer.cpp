@@ -1,4 +1,4 @@
-#include "gl_renderer.hpp"
+#include "dsgl_renderer.hpp"
 
 namespace DS
 {

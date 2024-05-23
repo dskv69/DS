@@ -2,8 +2,9 @@
 
 namespace DS
 {
-	Layer::Layer(size_t i) : id(i)
+	Layer::Layer()
 	{
+		DS_INFO("{}", id.to_uint64());
 	}
 
 	void Layer::on_attach() {}

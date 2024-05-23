@@ -8,15 +8,19 @@ add_subdirectory(vendor/glad)
 set(SRC_FILES 	"source/core/log.cpp"
 				"source/core/application.cpp" 
 				"source/core/window.cpp"
-				"source/opengl/gl_renderer.cpp"
+				"source/opengl/dsgl_renderer.cpp"
+				"source/core/id.cpp"
+				"source/core/timer.cpp"
 				"source/core/layer.cpp")
 
 set(HEADER_FILES "include/DS/application.hpp"
 				 "include/DS/window.hpp" 
 				 "include/DS/log.hpp" 
 				 "include/DS/common.hpp" 
-				 "include/DS/gl_renderer.hpp" 
+				 "include/DS/dsgl_renderer.hpp" 
 				 "include/DS/layer.hpp"
+				 "include/DS/timer.hpp"
+				 "include/DS/id.hpp"
 				 "include/DS.h" )
 
 add_library (DS ${SRC_FILES} ${HEADER_FILES})

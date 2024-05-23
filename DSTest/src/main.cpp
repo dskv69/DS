@@ -5,50 +5,27 @@
 class TestLayer : public DS::Layer
 {
 public:
-	TestLayer(size_t id) : Layer(id)
+	TestLayer() : Layer()
 	{
 	}
 
 public:
-
-	void on_update() override
+	virtual void on_update() override
 	{
-		DS_INFO("Hello from Test Layer");
-	}
-
-};
-
-class TestApp : public DS::Application
-{
-public: 
-	TestApp() : Application()
-	{
-	}
-
-private:
-	void on_start() override
-	{
-		m_window->create(800, 600, "DS ENGINE TEST");
-		load_gl();
-		glClearColor(1.0f, 0.0f, 0.5f, 1.0f);
-	}	
-	
-	void on_update() override
-	{
+		glClearColor(0.3f, 0.2f, 0.3f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
-	}	
-	
-	void on_close() override
-	{
-
 	}
 };
 
 int main(int argc, char *argv[])
 {
-	auto app = new TestApp;
+	DS::PerformanceTimer p("Application");
+	auto app = new DS::Application();
+
 	DS::AppInstancer::create_app(app);
 	app->push_layer<TestLayer>();
 	DS::AppInstancer::start_app();
+
 	delete app;
+	return 0;
 }

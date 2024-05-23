@@ -7,11 +7,11 @@
 
 namespace DS
 {
-	struct AppInfo 
+	struct AppInfo
 	{
 		int width;
 		int height;
-		const char* title;
+		const char *title;
 	};
 
 	class AppInstancer;
@@ -19,15 +19,15 @@ namespace DS
 	// This class is meant to be inherited
 	class Application
 	{
-	friend AppInstancer;
+		friend AppInstancer;
 
 	private:
 		AppInfo m_info;
-		std::vector<Layer*> m_layers;
+		std::vector<Layer *> m_layers;
 
 	public:
-		 std::shared_ptr<Window> m_window;
-		 bool gl_loaded;
+		std::shared_ptr<Window> m_window;
+		bool gl_loaded;
 
 	private:
 		void run();
@@ -40,13 +40,14 @@ namespace DS
 		virtual void on_close();
 
 	public:
-		Application(AppInfo info={800, 600, "DS ENGINE"});
+		Application(AppInfo info = {800, 600, "DS ENGINE"});
 		~Application();
 
-		template<typename T>
+		template <typename T>
 		void push_layer()
 		{
-			m_layers.push_back(new T(m_layers.size()));
+			m_layers.push_back(new T());
+			m_layers[m_layers.size() - 1]->on_attach();
 		}
 
 		void pop_layer();
@@ -56,7 +57,7 @@ namespace DS
 	class AppInstancer
 	{
 	private:
-		static Application* s_appInstance;
+		static Application *s_appInstance;
 		static bool s_created;
 		static bool s_started;
 		static bool s_closed;
@@ -66,10 +67,10 @@ namespace DS
 		AppInstancer() = delete;
 
 	public:
-		static void create_app(Application* app);
+		static void create_app(Application *app);
 		static void start_app();
-		
-		GETTER(Application*, get_app, s_appInstance)
+
+		GETTER(Application *, get_app, s_appInstance)
 		GETTER(bool, is_created, s_created)
 		GETTER(bool, is_started, s_started)
 		GETTER(bool, is_closed, s_closed)

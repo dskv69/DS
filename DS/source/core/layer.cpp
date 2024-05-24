@@ -7,11 +7,11 @@ namespace DS
 		DS_INFO("{}", id.to_uint64());
 	}
 
-	void Layer::on_attach() {}
+	void Layer::on_attach(Application *app) {}
 
-	void Layer::on_detach() {}
+	void Layer::on_detach(Application *app) {}
 
-	void Layer::on_update() {}
+	void Layer::on_update(Application *app) {}
 
-	void Layer::on_ui() {}
+	void Layer::on_ui(Application *app) {}
 }

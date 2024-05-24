@@ -9,11 +9,25 @@ public:
 	{
 	}
 
-public:
-	virtual void on_update() override
+private:
+	virtual void on_update(DS::Application *app) override
 	{
-		glClearColor(0.3f, 0.2f, 0.3f, 1.f);
-		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	virtual void on_ui(DS::Application *app) override
+	{
+		ImGui::Begin("DS Debug Window");
+		ImGui::Text("Hello, World!");
+		if (ImGui::Button("Show/Hide Demo", ImVec2(120, 30)))
+		{
+			app->imgui_demo();
+		}
+		ImGui::End();
+	}
+
+	virtual void on_detach(DS::Application *app) override
+	{
+		DS_INFO("Detached test layer");
 	}
 };
 

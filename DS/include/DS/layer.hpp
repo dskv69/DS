@@ -6,6 +6,8 @@
 
 namespace DS
 {
+	class Application;
+
 	class Layer
 	{
 	private:
@@ -13,10 +15,10 @@ namespace DS
 		Layer();
 		~Layer() = default;
 
-		virtual void on_attach();
-		virtual void on_detach();
-		virtual void on_update();
-		virtual void on_ui();
+		virtual void on_attach(Application *app);
+		virtual void on_detach(Application *app);
+		virtual void on_update(Application *app);
+		virtual void on_ui(Application *app);
 
 		UUID id;
 	};

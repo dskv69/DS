@@ -4,6 +4,11 @@
 #include "common.hpp"
 #include "window.hpp"
 #include "layer.hpp"
+#include "ui_layer.hpp"
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 namespace DS
 {
@@ -20,10 +25,12 @@ namespace DS
 	class Application
 	{
 		friend AppInstancer;
+		friend UILayer;
 
 	private:
 		AppInfo m_info;
 		std::vector<Layer *> m_layers;
+		std::unique_ptr<UILayer> m_uiLayer;
 
 	public:
 		std::shared_ptr<Window> m_window;
@@ -36,18 +43,25 @@ namespace DS
 		void load_gl();
 
 		virtual void on_start();
+		// called after all layers are updated
 		virtual void on_update();
 		virtual void on_close();
+		virtual void on_ui();
 
 	public:
 		Application(AppInfo info = {800, 600, "DS ENGINE"});
 		~Application();
 
+		inline void imgui_demo()
+		{
+			m_uiLayer->m_showDemo = !m_uiLayer->m_showDemo;
+		}
+
 		template <typename T>
 		void push_layer()
 		{
 			m_layers.push_back(new T());
-			m_layers[m_layers.size() - 1]->on_attach();
+			m_layers[m_layers.size() - 1]->on_attach(this);
 		}
 
 		void pop_layer();
